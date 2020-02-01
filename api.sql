@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `oppertunities`
+-- Table structure for table `opportunities`
 --
 
-CREATE TABLE `oppertunities` (
+CREATE TABLE `opportunities` (
   `id` int(11) NOT NULL,
   `noticeId` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -63,9 +63,9 @@ CREATE TABLE `oppertunities` (
 --
 
 --
--- Indexes for table `oppertunities`
+-- Indexes for table `opportunities`
 --
-ALTER TABLE `oppertunities`
+ALTER TABLE `opportunities`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -73,9 +73,9 @@ ALTER TABLE `oppertunities`
 --
 
 --
--- AUTO_INCREMENT for table `oppertunities`
+-- AUTO_INCREMENT for table `opportunities`
 --
-ALTER TABLE `oppertunities`
+ALTER TABLE `opportunities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
