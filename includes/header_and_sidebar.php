@@ -1,4 +1,8 @@
+              <?php
+              $filename= basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
+              $page = pathinfo($filename, PATHINFO_FILENAME);
 
+              ?>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
 		<base href="<?php echo base_url; ?>">
@@ -157,7 +161,7 @@
 
 				 
 				<ul class="nav nav-list">
-					<li class="active">
+					<li <?php if($page=='') {?>class="active"<?php } ?>>
 						<a href="">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
@@ -165,46 +169,47 @@
 
 						<b class="arrow"></b>
 					</li>
-					<li class="">
-						<a href="">
+                    <li <?php if($page=='opportunities') {?>class="active"<?php } ?>>
+                        <a href="<?php echo base_url; ?>opportunities.php">
+                            <i class="menu-icon fa fa-list"></i>
+                            <span class="menu-text"> Opportunities </span>
+                        </a>
+                    </li>
+                    <li <?php if($page=='awards') {?>class="active"<?php } ?>>
+						<a href="<?php echo base_url; ?>awards.php">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> All Award </span>
 						</a>
 					</li>
-					<li class="">
-						<a href="">
+					<li <?php if($page=='assistance-listing') {?>class="active"<?php } ?>>
+						<a href="<?php echo base_url; ?>assistance-listing.php">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> Assistance Listing </span>
 						</a>
 					</li>
-					<li class="">
-						<a href="">
-							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text"> Opportunities </span>
-						</a>
-					</li>
-					<li class="">
-						<a href="">
+
+					<li <?php if($page=='contract-data') {?>class="active"<?php } ?>>
+						<a href="<?php echo base_url; ?>contract-data.php">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> Contract Data </span>
 						</a>
 					</li>
-					<li class="">
-						<a href="">
+					<li <?php if($page=='entity-information') {?>class="active"<?php } ?>>
+						<a href="<?php echo base_url; ?>entity-information.php">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text">  Entity Information</span>
 						</a>
 					</li>
-					<li class="">
-						<a href="">
+					<li <?php if($page=='federal-hierarchy') {?>class="active"<?php } ?> >
+						<a href="<?php echo base_url; ?>federal-hierarchy.php">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> Federal Hierarchy </span>
 						</a>
 					</li>
-					<li class="">
-						<a href="">
+					<li <?php if($page=='wage-determination') {?>class="active"<?php } ?>>
+						<a href="<?php echo base_url; ?>wage-determination.php">
 							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text">Wage Determination</span>
+							<span class="menu-text">wage-determination</span>
 						</a>
 					</li>
  
