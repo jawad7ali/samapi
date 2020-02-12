@@ -1,9 +1,9 @@
 <?php
-  include 'Oppertunity.php';
+include 'FederalHierarchyClass.php';
 
 
 
-  $oppertunity = new Oppertunity();
+$oppertunity = new FederalHierarchyClass();
 
 
 
@@ -60,33 +60,33 @@ include_once 'includes/config.php'; ?>
                     </thead>
                     <tbody>
                     <?php foreach($oppertunity->get_data() as $data){ ?>
-                   <tr>
-                       <td ><?php echo $data->noticeId ?></td>
-                       <td ><?php echo $data->title?></td>
-                       <td ><?php echo $data->solicitationNumber?></td>
-                       <td ><?php echo $data->department?></td>
-                       <td ><?php echo $data->subTier?></td>
-                       <td ><?php echo $data->office?></td>
-                       <td ><?php echo $data->postedDate?></td>
-                       <td ><?php echo $data->type?></td>
-                       <td ><?php echo $data->baseType?></td>
-                       <td ><?php echo $data->archiveType?></td>
-                       <td ><?php echo $data->archiveDate?></td>
-                       <td ><?php echo $data->typeOfSetAsideDescription?></td>
-                       <td ><?php echo $data->typeOfSetAside?></td>
-                       <td ><?php echo $data->responseDeadLine?></td>
-                       <td ><?php echo $data->naicsCode?></td>
-                       <td ><?php echo $data->classificationCode?></td>
-                       <td ><?php echo $data->active?></td>
-                       <td ><?php echo $data->award?></td>
-                       <td ><?php echo $data->pointOfContact?></td>
-                       <td ><?php echo $data->description?></td>
-                       <td ><?php echo $data->organizationType?></td>
-                       <td ><?php echo $data->placeOfPerformance?></td>
-                       <td ><?php echo $data->additionalInfoLink?></td>
-                       <td ><?php echo $data->links ?></td>
-                       <td ><?php echo $data->uiLink ?></td>
-                   </tr>
+                        <tr>
+                            <td ><?php echo $data->noticeId ?></td>
+                            <td ><?php echo $data->title?></td>
+                            <td ><?php echo $data->solicitationNumber?></td>
+                            <td ><?php echo $data->department?></td>
+                            <td ><?php echo $data->subTier?></td>
+                            <td ><?php echo $data->office?></td>
+                            <td ><?php echo $data->postedDate?></td>
+                            <td ><?php echo $data->type?></td>
+                            <td ><?php echo $data->baseType?></td>
+                            <td ><?php echo $data->archiveType?></td>
+                            <td ><?php echo $data->archiveDate?></td>
+                            <td ><?php echo $data->typeOfSetAsideDescription?></td>
+                            <td ><?php echo $data->typeOfSetAside?></td>
+                            <td ><?php echo $data->responseDeadLine?></td>
+                            <td ><?php echo $data->naicsCode?></td>
+                            <td ><?php echo $data->classificationCode?></td>
+                            <td ><?php echo $data->active?></td>
+                            <td ><?php echo $data->award?></td>
+                            <td ><?php echo $data->pointOfContact?></td>
+                            <td ><?php echo $data->description?></td>
+                            <td ><?php echo $data->organizationType?></td>
+                            <td ><?php echo $data->placeOfPerformance?></td>
+                            <td ><?php echo $data->additionalInfoLink?></td>
+                            <td ><?php echo $data->links ?></td>
+                            <td ><?php echo $data->uiLink ?></td>
+                        </tr>
                     <?php } ?>
 
                     </tbody>
