@@ -1,13 +1,9 @@
 <?php
+  //Class for opp
   include 'Oppertunity.php';
-
-
-
+  //object of opp
   $oppertunity = new Oppertunity();
-
-
-
-include_once 'includes/config.php'; ?>
+  include_once 'includes/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
