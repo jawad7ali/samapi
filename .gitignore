@@ -1,3 +1,3 @@
 # Ignore files
-includes/config.php*
+includes/config.php
 database.php*
