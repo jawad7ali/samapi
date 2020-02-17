@@ -1,7 +1,8 @@
 <?php
+ 
+include 'includes/config.php';
+include 'classes/database.php';
 
-include 'database.php';
-session_start();
 $data = new Database;
 $message = '';
 if(isset($_POST["login"]))
@@ -10,12 +11,15 @@ if(isset($_POST["login"]))
         'username'     =>     $_POST["username"],
         'password'     =>     $_POST["password"]
     );
+  
+    
     if($data->required_validation($field))
     {
         if($data->can_login("users", $field))
         {
+              
             $_SESSION["username"] = $_POST["username"];
-            header("location:index.php");
+            header("location:opportunities.php");
         }
         else
         {

@@ -1,11 +1,10 @@
 <?php
-
 include_once 'database.php';
 class Oppertunity  extends Database
 {
 
     private $conn;
-    private $table_name = "oppertunities";
+    private $table_name = "opportunities";
     public function __construct(){
 
         $db=new Database;
@@ -34,4 +33,6 @@ class Oppertunity  extends Database
             return  "0 results";
         }
     }
+
+    
 }
