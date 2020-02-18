@@ -7,15 +7,20 @@
     // Include Database Class 
 
 
-   //include 'classes/database.php';
 
-  //Class for Oppertunity
+  include 'classes/database.php';
   
-  include 'classes/Oppertunity.php';
+  $data = new database();
+
   
-  //object of Oppertunity
+  //Class for Pagination 
   
-  $oppertunity = new Oppertunity();  
+  include 'classes/paginator.class.php';
+  
+  //object of of pagination Class
+  
+  
+ 
   
   //Include Top Section 
   
@@ -40,7 +45,8 @@
     // Sidebar
     include_once 'includes/sidebar.php';
 
-    ?>
+    ?> 
+
       <!-- Section main-content -->
      
       <div class="main-content">
@@ -55,7 +61,21 @@
                 </ul><!-- /.breadcrumb -->
             </div>
 
+
             <div class="page-content" style="overflow-x: auto">
+                 <?php 
+                 if(isset($_SESSION['oppertunity']['save']) and $_SESSION['oppertunity']['save']!=''){
+                 ?> 
+                 <div class="pull-left alert alert-success no-margin alert-dismissable">
+                    <button class="close" type="button" data-dismiss="alert">
+                      <i class="ace-icon fa fa-times"></i>
+                    </button>
+
+                    <i class="ace-icon fa fa-umbrella bigger-120 blue"></i>
+                      <?php echo $_SESSION['oppertunity']['save'];?>
+                  </div>
+                <?php } unset($_SESSION['oppertunity']['save']); ?>
+
                 <table class="table">
                     <thead>
                     <tr>
@@ -65,27 +85,75 @@
                         <th >Office</th>
                         <th >Type</th>
                         <th >Archive Type</th>
-                        <th >Archive Date</th>
+                        <th >Action</th>
                         
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($oppertunity->get_data() as $data){ ?>
+                    <?php
+                     $data_fe =  $data->con;
+                      $condition    = "";
+                      if(isset($_GET['tb1']) and $_GET['tb1']!="")
+                      {
+                        $condition    .=  " AND continentName='".$_GET['tb1']."'";
+                      }
+                      
+                      //Main query
+                      $pages = new Paginator;
+                      $pages->default_ipp = 2;
+
+                      $sql_forms = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition."");
+
+                      
+                      $pages->items_total = $sql_forms->num_rows;
+                      $pages->mid_range = 2;
+                      $pages->paginate(); 
+                      
+                      $result = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition." ORDER BY id desc ".$pages->limit."");
+                    
+                    
+                     if($pages->items_total>0){
+                        $n  =   1;
+                        while($data  =   $result->fetch_assoc()){ 
+            ?>
                    <tr>
-                       <td ><?php echo $data->title?></td>
-                       <td ><?php echo $data->solicitationNumber?></td>
-                       <td ><?php echo $data->department?></td>
-                       <td ><?php echo $data->office?></td>
-                       <td ><?php echo $data->type?></td>
-                       <td ><?php echo $data->archiveType?></td>
-                       <td ><?php echo $data->archiveDate?></td>
-                       
+                      <td ><?php echo $data['title']?></td>
+                      <td ><?php echo $data['solicitationNumber'];?></td>
+                      <td ><?php echo $data['department'];?></td>
+                      <td ><?php echo $data['office'];?></td>
+                      
+                      <td ><?php echo $data['type'];?></td>
+                      <td ><?php echo $data['archiveType'];?></td>
+                       <td > 
+                            <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_opportunities.php?action=d&id=<?php echo $data['id'];?>'}">
+                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                              </button>
+  
+                      </td>
+                     
+
                    </tr>
-                    <?php } ?>
+                    <?php   } }  ?>
 
                     </tbody>
 
                 </table>
+
+                <div class="clearfix"></div>
+    
+    
+    <div class="row marginTop">
+      <div class="col-sm-12 paddingLeft pagerfwt">
+        <?php if($pages->items_total > 0) { ?>
+          <?php echo $pages->display_pages();?>
+          <?php echo $pages->display_items_per_page();?>
+          <?php echo $pages->display_jump_menu(); ?>
+        <?php }?>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
 
             </div><!-- /.page-content -->
         </div>
