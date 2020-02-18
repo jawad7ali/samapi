@@ -6,7 +6,7 @@ include 'EntityClass.php';
 $oppertunity = new EntityClass();
 
 
-
+ 
 include_once 'includes/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
