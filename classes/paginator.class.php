@@ -134,7 +134,7 @@ class Paginator{
 
 		{
 
-			$this->return = ($this->current_page > 1 And $this->items_total >= 10) ? "<div class='row'><div class='col-sm-7'><ul class='pagination'><li class='page-item'><a class=\"page-link\" href=\"$_SERVER[PHP_SELF]?page=$prev_page&ipp=$this->items_per_page$this->querystring\">Previous</a></li> ":"<div class='row'><div class='col-sm-7'><ul class='pagination'><li class='page-item'><a href=\"javascript:;\" class=\"page-link disabled\" tabindex=\"-1\">Previous</a></li> ";
+			$this->return = ($this->current_page > 1 And $this->items_total >= 10) ? "<ul class='pagination'><li class='page-item'><a class=\"page-link\" href=\"$_SERVER[PHP_SELF]?page=$prev_page&ipp=$this->items_per_page$this->querystring\">Previous</a></li> ":"<ul class='pagination'><li class='page-item'><a href=\"javascript:;\" class=\"page-link disabled\" tabindex=\"-1\">Previous</a></li> ";
 
 
 
@@ -199,7 +199,7 @@ class Paginator{
 
 			$this->return .= (($this->current_page < $this->num_pages And $this->items_total >= 10) And ($_GET['page'] != 'All') And $this->current_page > 0) ? "<li class='page-item'><a class=\"page-link\" href=\"$_SERVER[PHP_SELF]?page=$next_page&ipp=$this->items_per_page$this->querystring\">Next</a></li>\n":"<li class='page-item'><a href=\"javascript:;\" class=\"page-link disabled\" href=\"javascript:;\" tabindex=\"-1\">Next</a></li>\n";
 
-			$this->return .= (isset($_GET['page']) and $_GET['page'] == 'All') ? "<li class='page-item active'><a class=\"page-link\" hidden href=\"javascript:;\">All</a></li> \n":"<li class='page-item'><a class=\"page-link\" hidden href=\"$_SERVER[PHP_SELF]?page=1&ipp=All$this->querystring\">All</a></li></ul></div> \n";
+			$this->return .= (isset($_GET['page']) and $_GET['page'] == 'All') ? "<li class='page-item active'><a class=\"page-link\" hidden href=\"javascript:;\">All</a></li> \n":"<li class='page-item'><a class=\"page-link\" hidden href=\"$_SERVER[PHP_SELF]?page=1&ipp=All$this->querystring\">All</a></li></ul>\n";
 
 		}
 
@@ -211,11 +211,11 @@ class Paginator{
 
 			{
 
-				$this->return .= ($i == $this->current_page) ? "<div class='row'><div class='col-sm-6'><ul class='pagination'><li class='page-item active'><a class=\"page-link\" href=\"javascript:;\">$i</a></li> ":"<li class='page-item'><a class=\"page-link\" href=\"$_SERVER[PHP_SELF]?page=$i&ipp=$this->items_per_page$this->querystring\">$i</a></li> ";
+				$this->return .= ($i == $this->current_page) ? " <ul class='pagination'><li class='page-item active'><a class=\"page-link\" href=\"javascript:;\">$i</a></li> ":"<li class='page-item'><a class=\"page-link\" href=\"$_SERVER[PHP_SELF]?page=$i&ipp=$this->items_per_page$this->querystring\">$i</a></li> ";
 
 			}
 
-			$this->return .= "<li class='page-item'><a class=\"page-link\" href=\"$_SERVER[PHP_SELF]?page=1&ipp=All$this->querystring\">All</a></li></ul></div> \n";
+			$this->return .= "<li class='page-item'><a class=\"page-link\" href=\"$_SERVER[PHP_SELF]?page=1&ipp=All$this->querystring\">All</a></li></ul> \n";
 
 		}
 		$this->low = ( $this->current_page <= 0) ? 0:($this->current_page-1) * $this->items_per_page;
@@ -236,7 +236,7 @@ class Paginator{
 
 		foreach($this->ipp_array as $ipp_opt) $items .= ($ipp_opt == $this->items_per_page) ? "<option selected value=\"$ipp_opt\">$ipp_opt</option>\n":"<option value=\"$ipp_opt\">$ipp_opt</option> \n";
 
-		return "<div class='col-sm-6 float-sm-right'><div class='form-row mt-2 text-right'><div class='col-sm-2'><span class=\"text-muted\">Rows:</span> <select class=\"border rounded text-muted\" onchange=\"window.location='$_SERVER[PHP_SELF]?page=1&ipp='+this[this.selectedIndex].value+'$this->querystring';return false\">$items</select></div>\n";
+		return " <div class='col-sm-2'><span class=\"text-muted\">Show</span> <select class=\"border rounded text-muted\" onchange=\"window.location='$_SERVER[PHP_SELF]?page=1&ipp='+this[this.selectedIndex].value+'$this->querystring';return false\">$items</select></div>\n";
 
 	}
 

@@ -25,20 +25,20 @@
                     </li>
                     <li <?php if($page=='awards') {?>class="active"<?php } ?>>
 						<a href="<?php echo base_url; ?>awards.php">
-							<i class="menu-icon fa fa-list"></i>
+							<i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text"> All Award </span>
 						</a>
 					</li>
 					<li <?php if($page=='assistance-listing') {?>class="active"<?php } ?>>
 						<a href="<?php echo base_url; ?>assistance-listing.php">
-							<i class="menu-icon fa fa-list"></i>
+							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> Assistance Listing </span>
 						</a>
 					</li>
 
 					<li <?php if($page=='contract-data') {?>class="active"<?php } ?>>
 						<a href="<?php echo base_url; ?>contract-data.php">
-							<i class="menu-icon fa fa-list"></i>
+							<i class="menu-icon fa fa-list-alt"></i>
 							<span class="menu-text"> Contract Data </span>
 						</a>
 					</li>
@@ -50,13 +50,13 @@
 					</li>
 					<li <?php if($page=='federal-hierarchy') {?>class="active"<?php } ?> >
 						<a href="<?php echo base_url; ?>federal-hierarchy.php">
-							<i class="menu-icon fa fa-list"></i>
+							<i class="menu-icon fa fa-calendar"></i>
 							<span class="menu-text"> Federal Hierarchy </span>
 						</a>
 					</li>
 					<li <?php if($page=='wage-determination') {?>class="active"<?php } ?>>
 						<a href="<?php echo base_url; ?>wage-determination.php">
-							<i class="menu-icon fa fa-list"></i>
+							<i class="menu-icon fa fa-picture-o"></i>
 							<span class="menu-text">wage-determination</span>
 						</a>
 					</li>

@@ -1,18 +1,69 @@
 <?php
-include 'AwardClass.php';
+
+ // Include Configuration File 
+
+  include 'includes/config.php';
+
+    // Include Database Class 
 
 
+  include 'classes/database.php';
+  
+  $data = new database(); 
 
-$oppertunity = new AwardClass();
+  
+  //Class for Pagination 
+  
+  include 'classes/paginator.class.php';
+  
+  //object of of pagination Class
+  
+  
+  //Include Top Section 
+  
+  include_once 'includes/top.php'; 
 
 
+   $data_fe =  $data->con;
+  $condition    = "";
+  
+  //Main query
+  $pages = new Paginator;
+  $pages->default_ipp = 10;
 
-include_once 'includes/config.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>gsa Gov</title>
-    <?php include_once 'includes/header_and_sidebar.php'; ?>
+  $sql_forms = $data_fe->query("SELECT * FROM awards WHERE 1 ".$condition."");
+
+  
+  $pages->items_total = $sql_forms->num_rows;
+  $pages->mid_range = 2;
+  $pages->paginate(); 
+   
+  $result = $data_fe->query("SELECT * FROM awards WHERE 1 ".$condition." ORDER BY id desc ".$pages->limit."");
+
+
+   ?>
+  
+  <body class="no-skin">
+     
+    <?php 
+    // header Section 
+    include_once 'includes/header.php';
+    ?>
+
+    <div class="main-container ace-save-state" id="main-container">
+       <script type="text/javascript">
+        try{ace.settings.loadState('main-container')}catch(e){}
+      </script>
+
+
+    <?php 
+    // Sidebar
+    include_once 'includes/sidebar.php';
+
+    ?> 
+
+      <!-- Section main-content -->
+
     <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -26,75 +77,138 @@ include_once 'includes/config.php'; ?>
             </div>
 
             <div class="page-content" style="overflow-x: auto">
+                
+                <div class="table-header">
+                      Latest Awards
+
+                </div>
+                <?php 
+                if($pages->items_total>0){
+                     
+                     ?>
+                <div style="margin: 10px 0">
+                 <?php echo $pages->display_items_per_page();?>
+                </div>
+                <?php  } ?>
+
+               
+
+
+                 <?php 
+                 if(isset($_SESSION['awards']['save']) and $_SESSION['awards']['save']!=''){
+                 ?> 
+                 <div class="pull-left alert alert-success no-margin alert-dismissable">
+                    <button class="close" type="button" data-dismiss="alert">
+                      <i class="ace-icon fa fa-times"></i>
+                    </button>
+
+                    <i class="ace-icon fa fa-umbrella bigger-120 blue"></i>
+                      <?php echo $_SESSION['awards']['save'];?>
+                  </div>
+                <?php } unset($_SESSION['awards']['save']); ?>
+                <div class="dataTables_wrapper">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th >noticeId</th>
-                        <th >title</th>
-                        <th >solicitationNumber</th>
-                        <th >department</th>
-                        <th >subTier</th>
-                        <th >office</th>
-                        <th >postedDate</th>
-                        <th >type</th>
-                        <th >baseType</th>
-                        <th >archiveType</th>
-                        <th >archiveDate</th>
-                        <th >typeOfSetAsideDescription</th>
-                        <th >typeOfSetAside</th>
-                        <th >responseDeadLine</th>
-                        <th >naicsCode</th>
-                        <th >classificationCode</th>
-                        <th >active</th>
-                        <th >award</th>
-                        <th >pointOfContact</th>
-                        <th >description</th>
-                        <th >organizationType</th>
-                        <th >placeOfPerformance</th>
-                        <th >additionalInfoLink</th>
-                        <th >links</th>
-                        <th >uiLink</th>
-
-
+                        <th >Title</th>
+                        <th >Solicitation Number</th>
+                        <th >Department</th>
+                        <th >Office</th>
+                        <th >Type</th>
+                        <th >Archive Type</th>
+                        <th >Action</th>
+                        
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($oppertunity->get_data() as $data){ ?>
+                    <?php if($pages->items_total>0){
+                        $n  =   1;
+                       while($data  =   $result->fetch_assoc()){ 
+            ?>
                         <tr>
-                            <td ><?php echo $data->noticeId ?></td>
-                            <td ><?php echo $data->title?></td>
-                            <td ><?php echo $data->solicitationNumber?></td>
-                            <td ><?php echo $data->department?></td>
-                            <td ><?php echo $data->subTier?></td>
-                            <td ><?php echo $data->office?></td>
-                            <td ><?php echo $data->postedDate?></td>
-                            <td ><?php echo $data->type?></td>
-                            <td ><?php echo $data->baseType?></td>
-                            <td ><?php echo $data->archiveType?></td>
-                            <td ><?php echo $data->archiveDate?></td>
-                            <td ><?php echo $data->typeOfSetAsideDescription?></td>
-                            <td ><?php echo $data->typeOfSetAside?></td>
-                            <td ><?php echo $data->responseDeadLine?></td>
-                            <td ><?php echo $data->naicsCode?></td>
-                            <td ><?php echo $data->classificationCode?></td>
-                            <td ><?php echo $data->active?></td>
-                            <td ><?php echo $data->award?></td>
-                            <td ><?php echo $data->pointOfContact?></td>
-                            <td ><?php echo $data->description?></td>
-                            <td ><?php echo $data->organizationType?></td>
-                            <td ><?php echo $data->placeOfPerformance?></td>
-                            <td ><?php echo $data->additionalInfoLink?></td>
-                            <td ><?php echo $data->links ?></td>
-                            <td ><?php echo $data->uiLink ?></td>
+                            <td ><?php echo $data['title']?></td>
+                            <td ><?php echo $data['solicitationNumber'];?></td>
+                            <td ><?php echo $data['department'];?></td>
+                            <td ><?php echo $data['office'];?></td>
+                            <td ><?php echo $data['type'];?></td>
+                            <td ><?php echo $data['archiveType'];?></td>
+                            <td > 
+                            <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_awards.php?action=d&id=<?php echo $data['id'];?>'}">
+                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                              </button>
+  
+                             </td>
+                     
+
+                            
                         </tr>
-                    <?php } ?>
+                    <?php }}else{?>
+                        <tr>
+                          No records founded !
+                        </tr>
+                   
+                    <?php }  ?>
 
                     </tbody>
 
                 </table>
+            <div class="clearfix"></div>
+                  
+                   <?php 
+
+                      if($pages->items_total > 0) {
+                      
+                      if(isset($_GET['page']) and $_GET['page']!='' and $_GET['page']!=1){
+                          $start = $_GET['page']*$_GET['ipp']-1;
+                         
+                      }else{
+                        $start = 1;
+                      }
+
+
+                      $valuess = $pages->items_per_page*$pages->current_page;
+
+                      if($pages->items_total<$valuess){
+                        $end = $pages->items_total;
+                      }else{
+                        $end = $valuess;
+                      }
+
+                    ?>
+      
+                 <div class="row">
+                      <div class="col-xs-6">
+                        <div class="dataTables_info" id="dynamic-table_info" role="status" aria-live="polite">Showing <?php echo $start;?> to <?php echo $end;?> of <?php echo $pages->items_total;?> entries
+                        </div>
+                      </div>
+                      <div class="col-xs-6">
+                          <div class="dataTables_paginate paging_simple_numbers" id="dynamic-table_paginate">  <?php echo $pages->display_pages();?>
+                            
+                          </div>
+                        </div>
+                  </div>
+               </div>
+             <?php } ?>
+
+    
+
+    <div class="clearfix"></div>
 
             </div><!-- /.page-content -->
         </div>
     </div><!-- /.main-content -->
 
     <?php include_once 'includes/footer.php'; ?>
+     
+     <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+      </a>
+  
+    </div><!-- /.main-container -->
+ 
+    <?php 
+    // Scripts
+    include_once 'includes/script.php';
+     ?>
+    </body>
+</html>

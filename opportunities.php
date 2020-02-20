@@ -19,11 +19,27 @@
   //object of of pagination Class
   
   
- 
-  
   //Include Top Section 
   
   include_once 'includes/top.php'; 
+
+
+   $data_fe =  $data->con;
+  
+  //Main query
+  $pages = new Paginator;
+  $pages->default_ipp = 10;
+
+  $sql_forms = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition."");
+
+  
+  $pages->items_total = $sql_forms->num_rows;
+  $pages->mid_range = 2;
+  $pages->paginate(); 
+   
+  $result = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition." ORDER BY id desc ".$pages->limit."");
+
+
 
 ?>
   
@@ -62,6 +78,19 @@
 
 
             <div class="page-content" style="overflow-x: auto">
+
+              <div class="table-header">
+                      Latest opportunities 
+              </div>
+                <?php 
+                if($pages->items_total>0){
+                     
+                     ?>
+                <div style="margin: 10px 0">
+                 <?php echo $pages->display_items_per_page();?>
+                </div>
+                <?php  } ?>
+
                  <?php 
                  if(isset($_SESSION['oppertunity']['save']) and $_SESSION['oppertunity']['save']!=''){
                  ?> 
@@ -74,7 +103,7 @@
                       <?php echo $_SESSION['oppertunity']['save'];?>
                   </div>
                 <?php } unset($_SESSION['oppertunity']['save']); ?>
-
+                <div class="dataTables_wrapper">
                 <table class="table">
                     <thead>
                     <tr>
@@ -90,25 +119,6 @@
                     </thead>
                     <tbody>
                     <?php
-                     $data_fe =  $data->con;
-                      $condition    = "";
-                      if(isset($_GET['tb1']) and $_GET['tb1']!="")
-                      {
-                        $condition    .=  " AND continentName='".$_GET['tb1']."'";
-                      }
-                      
-                      //Main query
-                      $pages = new Paginator;
-                      $pages->default_ipp = 2;
-
-                      $sql_forms = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition."");
-
-                      
-                      $pages->items_total = $sql_forms->num_rows;
-                      $pages->mid_range = 2;
-                      $pages->paginate(); 
-                      
-                      $result = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition." ORDER BY id desc ".$pages->limit."");
                     
                     
                      if($pages->items_total>0){
@@ -132,25 +142,56 @@
                      
 
                    </tr>
-                    <?php   } }  ?>
+                    <?php   } }else{?>
+                        <tr>
+                          No records founded !
+                        </tr>
+                   
+                    <?php }  ?>
 
                     </tbody>
 
                 </table>
 
                 <div class="clearfix"></div>
+                  
+                   <?php 
+
+                      if($pages->items_total > 0) {
+                      
+                      if(isset($_GET['page']) and $_GET['page']!='' and $_GET['page']!=1){
+                          $start = $_GET['page']*$_GET['ipp']-1;
+                         
+                      }else{
+                        $start = 1;
+                      }
+
+
+                      $valuess = $pages->items_per_page*$pages->current_page;
+
+                      if($pages->items_total<$valuess){
+                        $end = $pages->items_total;
+                      }else{
+                        $end = $valuess;
+                      }
+
+                    ?>
+      
+                 <div class="row">
+                      <div class="col-xs-6">
+                        <div class="dataTables_info" id="dynamic-table_info" role="status" aria-live="polite">Showing <?php echo $start;?> to <?php echo $end;?> of <?php echo $pages->items_total;?> entries
+                        </div>
+                      </div>
+                      <div class="col-xs-6">
+                          <div class="dataTables_paginate paging_simple_numbers" id="dynamic-table_paginate">  <?php echo $pages->display_pages();?>
+                            
+                          </div>
+                        </div>
+                  </div>
+               </div>
+             <?php } ?>
+
     
-    
-    <div class="row marginTop">
-      <div class="col-sm-12 paddingLeft pagerfwt">
-        <?php if($pages->items_total > 0) { ?>
-          <?php echo $pages->display_pages();?>
-          <?php echo $pages->display_items_per_page();?>
-          <?php echo $pages->display_jump_menu(); ?>
-        <?php }?>
-      </div>
-      <div class="clearfix"></div>
-    </div>
 
     <div class="clearfix"></div>
 
