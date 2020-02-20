@@ -7,9 +7,10 @@
     // Include Database Class 
 
 
+
   include 'classes/database.php';
   
-  $data = new database(); 
+  $data = new database();
 
   
   //Class for Pagination 
