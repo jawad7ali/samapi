@@ -18,7 +18,7 @@
 
   $minustwoday = date("m/d/Y", strtotime("-1 days"));
 
-$api_url = "https://api.sam.gov/prod/opportunities/v1/search?limit=10&api_key=M75D1gGx7BzDJkFCudsSjNObhFPDiZlaZEOrHMIl&postedFrom=$minusOneday&postedTo=$minustwoday";
+$api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=1582315789200&index=cfda,opp,fh,ei,wd,fpds&q=&page=0&sort=-modifiedDate&mode=search&is_active=true";
  
  //$api_url = "search.json";
 
@@ -30,49 +30,42 @@ $user_data = json_decode($json_data);
 
 // Oppertunities data 
 
-$opportunities_array = $user_data->opportunitiesData;
+$awards_array = $user_data->_embedded->results;
 
-
+ 
 $query_parts = array();
 
-$query = 'INSERT INTO opportunities (`noticeId`, `title`, `solicitationNumber`, `department`, `subTier`, `office`, `postedDate`, `type`, `baseType`, `archiveType`, `archiveDate`, `typeOfSetAsideDescription`, `typeOfSetAside`, `responseDeadLine`, `naicsCode`, `classificationCode`, `active`, `award`, `pointOfContact`, `description`, `organizationType`, `officeAddress`, `placeOfPerformance`, `additionalInfoLink`, `uiLink`, `links`) VALUES ';
+$query = 'INSERT INTO awards (`isCanceled`, `_rScore`, `_type`, `publishDate`, `isActive`, `title`, `type`, `descriptions`, `solicitationNumber`,   `responseDate`, `parentNoticeId`, `award`, `modifiedDate`, `organizationHierarchy`, `_id`, `modifications`) VALUES ';
 
 // Loop Through Oppertunities
 
-if(sizeof($opportunities_array)>0){
+if(sizeof($awards_array)>0){
   
-  foreach ($opportunities_array as $key=>$value) {
-      $noticeId = $value->noticeId;
+  foreach ($awards_array as $key=>$value) {
+      $_id = $value->_id;
 
-      $getResults =  $data->existquery('opportunities','noticeId',$noticeId);
+      $getResults =  $data->existquery('awards','_id',$_id);
    
       if(!$getResults){
-        $title = $value->title;
-        $solicitationNumber = $value->solicitationNumber;
-        $department = $value->department;
-        $subTier = $value->subTier;
-        $office = $value->office;
-        $postedDate = $value->postedDate;
-        $type = $value->type;
-        $baseType = $value->baseType;
-        $archiveType = $value->archiveType;
-        $archiveDate = $value->archiveDate;
-        $typeOfSetAsideDescription = $value->typeOfSetAsideDescription;
-        $typeOfSetAside = $value->typeOfSetAside;
-        $responseDeadLine = $value->responseDeadLine;
-        $naicsCode = $value->naicsCode;
-        $classificationCode = $value->classificationCode;
-        $active = $value->active;
-        $award =json_encode($value->award);
-        $pointOfContact =json_encode($value->pointOfContact);
-        $description = $value->description;
-        $organizationType = $value->organizationType;
-        $officeAddress =json_encode($value->officeAddress);
-        $placeOfPerformance =json_encode($value->placeOfPerformance);
-        $additionalInfoLink = $value->additionalInfoLink;
-        $uiLink = $value->uiLink;  
-        $links =json_encode($value->links);
-        $query_parts[] = "('" . $noticeId . "', '" . $title . "', '" . $solicitationNumber . "', '" . $department . "', '" . $subTier . "', '" . $office . "', '" . $postedDate . "', '" . $type . "', '" . $baseType . "', '" . $archiveType . "', '" . $archiveDate . "', '" . $typeOfSetAsideDescription . "', '" . $typeOfSetAside . "', '" . $responseDeadLine . "', '" . $naicsCode . "', '" . $classificationCode . "', '" . $active . "', '" . $award . "', '" . $pointOfContact . "', '" . $description . "', '" . $organizationType . "', '" . $officeAddress . "', '" . $placeOfPerformance . "', '" . $additionalInfoLink . "', '" . $uiLink . "', '" . $links . "')";   
+        $isCanceled =addslashes($value->isCanceled);
+        $_rScore =addslashes($value->_rScore);
+        $_type =addslashes($value->_type);
+        $publishDate =addslashes($value->publishDate);
+        $isActive = $value->isActive;
+        $title =addslashes($value->title);
+        $type =json_encode(addslashes($value->type)); 
+        $descriptions =json_encode(addslashes($value->descriptions)); 
+        $solicitationNumber =addslashes($value->solicitationNumber);
+        $responseDate =addslashes($value->responseDate);
+        $parentNoticeId =addslashes($value->parentNoticeId);
+        $award =json_encode(addslashes($value->award)); 
+        $modifiedDate =addslashes($value->modifiedDate);
+        $organizationHierarchy =json_encode(addslashes($value->organizationHierarchy)); 
+        $_id =addslashes($value->_id);
+        $modifications =json_encode(addslashes($value->modifications));
+       
+        
+        $query_parts[] = "('" . $isCanceled . "', '" . $_rScore . "', '" . $_type . "','" . $publishDate . "', '" . $isActive . "', '" . $title . "', '" . $type . "', '" . $descriptions . "', '" . $solicitationNumber . "', '" . $responseDate . "', '" . $parentNoticeId . "', '" . $award . "', '" . $modifiedDate . "', '" . $organizationHierarchy . "', '" . $_id . "', '" . $modifications . "')";   
       }
   }
 
