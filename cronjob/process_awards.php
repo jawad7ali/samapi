@@ -68,6 +68,7 @@ if(sizeof($awards_array)>0){
   }
 
     $query .= implode(',', $query_parts);
+    echo $query;
     $data->query($query);
 
 }   

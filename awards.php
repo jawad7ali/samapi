@@ -38,8 +38,7 @@
   $pages->mid_range = 2;
   $pages->paginate(); 
    
-  $result = $data_fe->query("SELECT * FROM awards WHERE 1 ".$condition." ORDER BY id desc ".$pages->limit."");
-
+  $result = $data_fe->query("SELECT * FROM awards WHERE 1 ".$condition." ORDER BY aId desc ".$pages->limit."");
 
    ?>
   
@@ -121,7 +120,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php if(!empty($result)){
+                    <?php 
+                    if(!empty($result)){
                         $n  =   1;
                        while($data  =   $result->fetch_assoc()){ 
             ?>
@@ -133,7 +133,7 @@
                             <td ><?php echo $data['type'];?></td>
                             <td ><?php echo $data['archiveType'];?></td>
                             <td > 
-                            <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_awards.php?action=d&id=<?php echo $data['id'];?>'}">
+                            <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_awards.php?action=d&id=<?php echo $data['aId'];?>'}">
                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                               </button>
   

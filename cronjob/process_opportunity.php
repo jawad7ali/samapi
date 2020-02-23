@@ -13,12 +13,12 @@
   $minustwoday = date("m/d/Y", strtotime("-1 days"));
 
  $api_url = "https://api.sam.gov/prod/opportunities/v1/search?limit=100&api_key=M75D1gGx7BzDJkFCudsSjNObhFPDiZlaZEOrHMIl&postedFrom=$minusOneday&postedTo=$minustwoday";
- 
+
  //$api_url = "search.json";
 
 // Read JSON file
 $json_data = file_get_contents($api_url);
- 
+
 // Decode JSON data into PHP array
 $user_data = json_decode($json_data);
 
@@ -71,6 +71,7 @@ if(sizeof($opportunities_array)>0){
   }
 
     $query .= implode(',', $query_parts);
+   // echo $query;
     $data->query($query);
 
 }   
