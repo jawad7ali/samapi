@@ -13,8 +13,8 @@
 $random = strtotime("-1 days");
   $limit =$record_limt ? $record_limt : 10;
   for ($c=0; $c < $limit ; $c++) {
- $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random
- &index=fpds&q=&page=$c&sort=-modifiedDate&mode=search&is_active=true";
+
+ $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random&index=fpds&q=&page=$c&sort=-modifiedDate&mode=search&is_active=true";
  
 // $api_url = "search.json";
 
@@ -24,8 +24,7 @@ $json_data = file_get_contents($api_url);
  
 // Decode JSON data into PHP array
 $listing_data = json_decode($json_data);
-
-
+ 
 // assistance listing  data 
 
 $contract_data_array = $listing_data->_embedded->results;
@@ -64,8 +63,9 @@ if(sizeof($contract_data_array)>0){
   }
 
     $query .= implode(',', $query_parts);
+    echo $query;
     $data->query($query);  
 
-}   
+} 
 
 }
