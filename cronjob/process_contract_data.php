@@ -63,7 +63,7 @@ if(sizeof($contract_data_array)>0){
   }
 
     $query .= implode(',', $query_parts);
-    echo $query;
+   // echo $query;
     $data->query($query);  
 
 } 
