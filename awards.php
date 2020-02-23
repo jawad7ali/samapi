@@ -121,7 +121,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php if($pages->items_total>0){
+                    <?php if(!empty($result)){
                         $n  =   1;
                        while($data  =   $result->fetch_assoc()){ 
             ?>

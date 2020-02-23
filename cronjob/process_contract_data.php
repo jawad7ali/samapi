@@ -1,12 +1,5 @@
 <?php
   
-  // Include Configuration File 
-
-  include '../includes/config.php';
-
-  // Include Database Class 
-
-  include '../classes/database.php';
 
   // Initaite Database Class 
 
@@ -17,8 +10,11 @@
   $minusOneday = date("Y-m-d", strtotime("-2 days"));
 
   $minustwoday = date("Y-m-d", strtotime("-1 days"));
-
- $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=1582312774651&index=fpds&q=&page=0&sort=-modifiedDate&mode=search&is_active=true";
+$random = strtotime("-1 days");
+  $limit =$record_limt ? $record_limt : 10;
+  for ($c=0; $c < $limit ; $c++) {
+ $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random
+ &index=fpds&q=&page=$c&sort=-modifiedDate&mode=search&is_active=true";
  
 // $api_url = "search.json";
 
@@ -72,3 +68,4 @@ if(sizeof($contract_data_array)>0){
 
 }   
 
+}

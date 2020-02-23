@@ -1,12 +1,5 @@
 <?php
   
-  // Include Configuration File 
-
-  include '../includes/config.php';
-
-  // Include Database Class 
-
-  include '../classes/database.php';
 
   // Initaite Database Class 
 

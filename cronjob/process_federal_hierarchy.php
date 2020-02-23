@@ -1,12 +1,6 @@
 <?php
   
-  // Include Configuration File 
 
-  include '../includes/config.php';
-
-  // Include Database Class 
-
-  include '../classes/database.php';
 
   // Initaite Database Class 
 
@@ -17,8 +11,11 @@
   $minusOneday = date("Y-m-d", strtotime("-2 days"));
 
   $minustwoday = date("Y-m-d", strtotime("-1 days"));
-
- $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=1582228191855&index=fh&q=&page=0&sort=-modifiedDate&mode=search&is_active=true";
+  $random = strtotime("-1 days");
+  $limit =$record_limt ? $record_limt : 10;
+  for ($f=0; $f < $limit ; $f++) {
+    
+    $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random&index=fh&q=&page=$f&sort=-modifiedDate&mode=search&is_active=true";
  
 // $api_url = "search.json";
 
@@ -73,8 +70,6 @@ if(sizeof($federal_hierarchy_array)>0){
 
     $query .= implode(',', $query_parts);
     $data->query($query);
-     
-
-
+  }
 }   
 

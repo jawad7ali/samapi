@@ -1,12 +1,6 @@
 <?php
   
-  // Include Configuration File 
 
-  include '../includes/config.php';
-
-  // Include Database Class 
-
-  include '../classes/database.php';
 
   // Initaite Database Class 
 
@@ -18,9 +12,9 @@
 
   $minustwoday = date("m/d/Y", strtotime("-1 days"));
 
-// $api_url = "https://api.sam.gov/prod/opportunities/v1/search?limit=10&api_key=M75D1gGx7BzDJkFCudsSjNObhFPDiZlaZEOrHMIl&postedFrom=$minusOneday&postedTo=$minustwoday";
+ $api_url = "https://api.sam.gov/prod/opportunities/v1/search?limit=100&api_key=M75D1gGx7BzDJkFCudsSjNObhFPDiZlaZEOrHMIl&postedFrom=$minusOneday&postedTo=$minustwoday";
  
- $api_url = "search.json";
+ //$api_url = "search.json";
 
 // Read JSON file
 $json_data = file_get_contents($api_url);

@@ -1,12 +1,6 @@
 <?php
   
-  // Include Configuration File 
 
-  include '../includes/config.php';
-
-  // Include Database Class 
-
-  include '../classes/database.php';
 
   // Initaite Database Class 
 
@@ -17,8 +11,12 @@
   $minusOneday = date("Y-m-d", strtotime("-2 days"));
 
   $minustwoday = date("Y-m-d", strtotime("-1 days"));
+  $random = strtotime("-1 days");
+  $limit =$record_limt ? $record_limt : 10;
 
- $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=1582181907306&index=cfda&q=&page=0&sort=-modifiedDate&mode=search&is_active=true&publish_date.to=$minustwoday+05:00&publish_date.from=$minusOneday+05:00";
+  for ($i=0; $i < $limit; $i++) {
+
+  $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random&index=cfda&q=&page=$i&sort=-modifiedDate&mode=search&is_active=true";
  
 // $api_url = "search.json";
 
@@ -80,3 +78,4 @@ if(sizeof($assistance_listing_array)>0){
 
 }   
 
+}
