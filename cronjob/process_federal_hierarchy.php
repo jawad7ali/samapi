@@ -13,7 +13,14 @@
   $minustwoday = date("Y-m-d", strtotime("-1 days"));
   $random = strtotime("-1 days");
   $limit =$record_limt ? $record_limt : 10;
-  for ($f=0; $f < $limit ; $f++) {
+
+  $from = $_SESSION['from'] ? $_SESSION['from'] : 10;
+  $to = $_SESSION['from'] + 10;
+  $_SESSION['from'] = $to;
+
+  for ($f=$from; $f < $to ; $f++) {
+
+  //for ($f=0; $f < $limit ; $f++) {
     
     $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random&index=fh&q=&page=$f&sort=-modifiedDate&mode=search&is_active=true";
  

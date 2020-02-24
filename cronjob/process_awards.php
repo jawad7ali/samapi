@@ -14,7 +14,13 @@
   $random = strtotime("-1 days");
   $limit =$record_limt ? $record_limt : 10;
   
-  for ($a=0; $a < $limit ; $a++) {
+  $from = $_SESSION['from'] ? $_SESSION['from'] : 10;
+  $to = $_SESSION['from'] + 10;
+  $_SESSION['from'] = $to;
+
+  for ($a=$from; $a < $to ; $a++) {
+
+  //for ($a=0; $a < $limit ; $a++) {
 
 $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random&index=cfda,opp,fh,ei,wd,fpds&q=&page=$a&sort=-modifiedDate&mode=search&is_active=true";
  
