@@ -150,7 +150,7 @@
 				 
 				<ul class="nav nav-list">
 					<li <?php if($page=='') {?>class="active"<?php } ?>>
-						<a href="">
+						<a href="index.php">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
 						</a>

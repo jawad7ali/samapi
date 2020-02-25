@@ -19,7 +19,7 @@ if(isset($_POST["login"]))
         {
               
             $_SESSION["username"] = $_POST["username"];
-            header("location:opportunities.php");
+            header("location:index.php");
         }
         else
         {

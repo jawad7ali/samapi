@@ -1,63 +1,255 @@
 <?php
 
-include 'Oppertunity.php';
+ // Include Configuration File 
+
+  include 'includes/config.php';
+
+    // Include Database Class 
 
 
+  include 'classes/database.php';
+  
+  $data = new database(); 
 
-$oppertunity = new Oppertunity();
+  
+  //Class for Pagination 
+  
+  include 'classes/paginator.class.php';
+  
+  //object of of pagination Class
+  
+  
+  //Include Top Section 
+  
+  include_once 'includes/top.php'; 
 
-include_once 'includes/config.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>gsa Gov</title>
-		<?php include_once 'includes/header_and_sidebar.php'; ?>
-			<div class="main-content">
-				<div class="main-content-inner">
-					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li>
-								<i class="ace-icon fa fa-home home-icon"></i>
-								<a href="">Home</a>
-							</li>
-							<li class="active">Dashboard</li>
-						</ul><!-- /.breadcrumb -->
-					</div>
+  $data_fe =  $data->con;
+  
+  //Main query
+  $sql_forms = $data_fe->query("SELECT aId FROM awards");
+  $totalawards = $sql_forms->num_rows;
 
-					<div class="page-content">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            </tbody>
-                        </table>
+  $sql_forms = $data_fe->query("SELECT lId FROM assistance_listing");
+  $assistance_listing = $sql_forms->num_rows;
 
-					</div><!-- /.page-content -->
-				</div>
-			</div><!-- /.main-content -->
+  $sql_forms = $data_fe->query("SELECT cId FROM contract_data");
+  $contract_data = $sql_forms->num_rows;
 
-	<?php include_once 'includes/footer.php'; ?>
+  $sql_forms = $data_fe->query("SELECT eId FROM entity_information");
+  $entity_information = $sql_forms->num_rows;
+
+  $sql_forms = $data_fe->query("SELECT id FROM opportunities");
+  $opportunities = $sql_forms->num_rows;
+
+  $sql_forms = $data_fe->query("SELECT wId FROM wage_determination");
+  $wage_determination = $sql_forms->num_rows;
+  
+  $sql_forms = $data_fe->query("SELECT fId FROM federal_hierarchy");
+  $federal_hierarchy = $sql_forms->num_rows;
+
+   ?>
+  
+  <body class="no-skin">
+     
+    <?php 
+    // header Section 
+    include_once 'includes/header.php';
+    ?>
+
+    <div class="main-container ace-save-state" id="main-container">
+       <script type="text/javascript">
+        try{ace.settings.loadState('main-container')}catch(e){}
+      </script>
+
+
+    <?php 
+    // Sidebar
+    include_once 'includes/sidebar.php';
+
+    ?> 
+
+      <!-- Section main-content -->
+
+    <div class="main-content">
+       
+      
+    <style type="text/css">
+    
+    </style>
+    
+		<div class="main-content-inner">
+			<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+				<ul class="breadcrumb">
+					<li>
+						<i class="ace-icon fa fa-home home-icon"></i>
+						<a href="#">Home</a>
+					</li>
+					<li class="active">Dashboard</li>
+				</ul><!-- /.breadcrumb -->
+
+				<div class="nav-search" id="nav-search">
+					<!-- <form class="form-search">
+						<span class="input-icon">
+							<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+							<i class="ace-icon fa fa-search nav-search-icon"></i>
+						</span>
+					</form> -->
+				</div><!-- /.nav-search -->
+			</div>
+			<style type="text/css">
+      	.infobox {
+    		width: 343px;
+		}
+		.infobox .infobox-content{
+			    max-width: 240px;
+		}
+      </style>
+			<div class="page-content">
+				<div class="page-header">
+					<h1>
+						Dashboard
+						<small>
+							<i class="ace-icon fa fa-angle-double-right"></i>
+							overview &amp; stats
+						</small>
+					</h1>
+				</div><!-- /.page-header -->
+
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- PAGE CONTENT BEGINS -->
+
+						<div class="row">
+							<div class="space-6"></div>
+
+							<div class="col-sm-12 infobox-container">
+								<div class="row">
+								<div class="col-sm-4">
+									<a href="/admin/approved-photos">
+										<div class="infobox infobox-green">
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-file"></i>
+											</div>
+
+											<div class="infobox-data">
+												<span class="infobox-data-number"><?php echo $opportunities; ?></span>
+												<div class="infobox-content">Total  Opportunities </div>
+											</div>
+
+											<!-- <div class="stat stat-success">8%</div> -->
+										</div>
+									</a>
+								</div>
+								<div class="col-sm-4">
+									<a href="/admin/photographers">
+										<div class="infobox infobox-blue">
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-users"></i>
+											</div>
+
+											<div class="infobox-data">
+												<span class="infobox-data-number"><?php echo $totalawards; ?></span>
+												<div class="infobox-content">Total Awards</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="col-sm-4">
+									<a href="/admin/orders">
+										<div class="infobox infobox-pink">
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-shopping-cart"></i>
+											</div>
+
+											<div class="infobox-data">
+												<span class="infobox-data-number"><?php echo $assistance_listing; ?></span>
+												<div class="infobox-content">Total  Assistance Listing </div>
+											</div>
+											<!-- <div class="stat stat-important">4%</div> -->
+										</div>
+									</a>
+								</div>
+							</div>
+								<div class="row">
+									<div class="space-6"></div>
+								<div class="col-sm-4">
+								<a href="/admin/orders">
+									<div class="infobox infobox-pink">
+										<div class="infobox-icon">
+											<i class="ace-icon fa fa-shopping-cart"></i>
+										</div>
+
+										<div class="infobox-data">
+											<span class="infobox-data-number"><?php echo $contract_data; ?></span>
+											<div class="infobox-content">Total  Contract Data </div>
+										</div>
+										<!-- <div class="stat stat-important">4%</div> -->
+									</div>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="/admin/orders">
+									<div class="infobox infobox-pink">
+										<div class="infobox-icon">
+											<i class="ace-icon fa fa-shopping-cart"></i>
+										</div>
+
+										<div class="infobox-data">
+											<span class="infobox-data-number"><?php echo $entity_information; ?></span>
+											<div class="infobox-content">Total Entity Information</div>
+										</div>
+										<!-- <div class="stat stat-important">4%</div> -->
+									</div>
+								</a>
+ 								</div>
+ 								<div class="col-sm-4">
+ 								<a href="/admin/orders">
+									<div class="infobox infobox-pink">
+										<div class="infobox-icon">
+											<i class="ace-icon fa fa-shopping-cart"></i>
+										</div>
+
+										<div class="infobox-data">
+											<span class="infobox-data-number"><?php echo $federal_hierarchy; ?></span>
+											<div class="infobox-content">Total  Federal Hierarchy </div>
+										</div>
+										<!-- <div class="stat stat-important">4%</div> -->
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="space-6"></div>	
+							<div class="col-sm-4">
+								<a href="/admin/orders">
+									<div class="infobox infobox-pink">
+										<div class="infobox-icon">
+											<i class="ace-icon fa fa-shopping-cart"></i>
+										</div>
+
+										<div class="infobox-data">
+											<span class="infobox-data-number"><?php echo $wage_determination; ?></span>
+											<div class="infobox-content">Total wage-determination</div>
+										</div>
+										<!-- <div class="stat stat-important">4%</div> -->
+									</div>
+								</a>
+							</div>
+							   
+
+								 
+							</div>
+
+							<div class="vspace-12-sm"></div>
+ 
+						</div><!-- /.row -->
+ 
+
+ 
+
+						<!-- PAGE CONTENT ENDS -->
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div><!-- /.page-content -->
+		</div>
+	</div><!-- /.main-content -->
