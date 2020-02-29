@@ -13,14 +13,11 @@
   $minustwoday = date("m/d/Y", strtotime("-1 days"));
 
   $random = strtotime("-1 days");
-  $limit =$record_limt ? $record_limt : 10;
 
-
-  for ($o=$from; $o < $to ; $o++) {
 
   //for ($o=0; $o < $limit ; $o++) {
 
-  $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random&index=opp&q=&page=$o&sort=-modifiedDate&mode=search&is_active=true";
+  $api_url = "https://beta.sam.gov/api/prod/sgs/v1/search/?random=$random&index=opp&q=&page=0&sort=-modifiedDate&mode=search&is_active=true";
 
  //$api_url = "https://api.sam.gov/prod/opportunities/v1/search?limit=100&api_key=M75D1gGx7BzDJkFCudsSjNObhFPDiZlaZEOrHMIl&postedFrom=$minusOneday&postedTo=$minustwoday";
 
@@ -45,7 +42,6 @@ $query = 'INSERT INTO opportunities (`noticeId`, `title`, `solicitationNumber`, 
 if(sizeof($opportunities_array)>0){
   
   foreach ($opportunities_array as $key=>$value) {
-
       $noticeId = addslashes($value->_id);
       $getResults =  $data->existquery('opportunities','noticeId',$noticeId);
       if(!$getResults){
@@ -67,7 +63,7 @@ if(sizeof($opportunities_array)>0){
         $active = $value->isActive ? addslashes($value->isActive) : '';
         $award = json_encode($value->award ? addslashes($value->award) : '');
         $pointOfContact =json_encode($value->pointOfContact ? addslashes($value->pointOfContact) : '');
-        $description = json_encode($value->descriptions);
+        $description = json_encode($value->descriptions ? addslashes($value->descriptions) : '');
         $organizationType = $value->organizationType ? addslashes($value->organizationType) : '';
         $officeAddress =json_encode($value->officeAddress ? addslashes($value->officeAddress) : '');
       $placeOfPerformance =json_encode($value->placeOfPerformance ? addslashes($value->placeOfPerformance) : '');
@@ -80,9 +76,7 @@ if(sizeof($opportunities_array)>0){
   }
 
     $query .= implode(',', $query_parts);
-   
+   // echo $query;
     $data->query($query);
-
-}   
 
 }

@@ -115,7 +115,7 @@
                         <th >shortReferenceNumber</th>
                         <th >isActive</th>
                         <th >isStandard</th>
-                        <th >Action</th>
+                        <!-- <th >Action</th> -->
                         
                     </tr>
                     </thead>
@@ -130,12 +130,12 @@
                             <td ><?php echo $data['shortReferenceNumber'];?></td>
                             <td ><?php echo $data['isActive'];?></td>
                             <td ><?php echo $data['isStandard'];?></td>
-                            <td > 
+                           <!--  <td > 
                             <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_wage_determination.php?action=d&wId=<?php echo $data['wId'];?>'}">
                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                               </button>
   
-                             </td>
+                             </td> -->
                      
 
                             

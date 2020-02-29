@@ -115,7 +115,7 @@
                         <th >samNumber</th>
                         <th >isActive</th>
                         <th >name</th>
-                        <th >Action</th>
+                        <!-- <th >Action</th> -->
                         
                     </tr>
                     </thead>
@@ -130,12 +130,12 @@
                             <td ><?php echo stripcslashes($data['samNumber']);?></td>
                             <td ><?php echo stripcslashes($data['isActive']);?></td>
                             <td ><?php echo stripcslashes($data['name']);?></td>
-                            <td > 
+                           <!--  <td > 
                             <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_entity_information.php?action=d&eId=<?php echo $data['eId'];?>'}">
                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                               </button>
   
-                             </td>
+                             </td> -->
                      
 
                             

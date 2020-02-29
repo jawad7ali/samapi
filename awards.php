@@ -115,7 +115,7 @@
                         <th >Office</th>
                         <th >Type</th>
                         <th >Archive Type</th>
-                        <th >Action</th>
+                       <!--  <th >Action</th> -->
                         
                     </tr>
                     </thead>
@@ -132,12 +132,12 @@
                             <td ><?php echo $data['office'];?></td>
                             <td ><?php echo $data['type'];?></td>
                             <td ><?php echo $data['archiveType'];?></td>
-                            <td > 
+                            <!-- <td > 
                             <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_awards.php?action=d&id=<?php echo $data['aId'];?>'}">
                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                               </button>
   
-                             </td>
+                             </td> -->
                      
 
                             

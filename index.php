@@ -125,7 +125,7 @@
 							<div class="col-sm-12 infobox-container">
 								<div class="row">
 								<div class="col-sm-4">
-									<a href="/admin/approved-photos">
+									<a href="<?php echo base_url; ?>opportunities.php">
 										<div class="infobox infobox-green">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-file"></i>
@@ -141,7 +141,7 @@
 									</a>
 								</div>
 								<div class="col-sm-4">
-									<a href="/admin/photographers">
+									<a href="<?php echo base_url; ?>awards.php">
 										<div class="infobox infobox-blue">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-users"></i>
@@ -155,7 +155,7 @@
 									</a>
 								</div>
 								<div class="col-sm-4">
-									<a href="/admin/orders">
+									<a href="<?php echo base_url; ?>assistance-listing.php">
 										<div class="infobox infobox-pink">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-shopping-cart"></i>
@@ -173,7 +173,7 @@
 								<div class="row">
 									<div class="space-6"></div>
 								<div class="col-sm-4">
-								<a href="/admin/orders">
+								<a href="<?php echo base_url; ?>contract-data.php">
 									<div class="infobox infobox-pink">
 										<div class="infobox-icon">
 											<i class="ace-icon fa fa-shopping-cart"></i>
@@ -181,14 +181,14 @@
 
 										<div class="infobox-data">
 											<span class="infobox-data-number"><?php echo $contract_data; ?></span>
-											<div class="infobox-content">Total  Contract Data </div>
+											<div class="infobox-content">Total Contract Data </div>
 										</div>
 										<!-- <div class="stat stat-important">4%</div> -->
 									</div>
 								</a>
 							</div>
 							<div class="col-sm-4">
-								<a href="/admin/orders">
+								<a href="<?php echo base_url; ?>entity-information.php">
 									<div class="infobox infobox-pink">
 										<div class="infobox-icon">
 											<i class="ace-icon fa fa-shopping-cart"></i>
@@ -203,7 +203,7 @@
 								</a>
  								</div>
  								<div class="col-sm-4">
- 								<a href="/admin/orders">
+ 								<a href="<?php echo base_url; ?>federal-hierarchy.php">
 									<div class="infobox infobox-pink">
 										<div class="infobox-icon">
 											<i class="ace-icon fa fa-shopping-cart"></i>
@@ -211,7 +211,7 @@
 
 										<div class="infobox-data">
 											<span class="infobox-data-number"><?php echo $federal_hierarchy; ?></span>
-											<div class="infobox-content">Total  Federal Hierarchy </div>
+											<div class="infobox-content">Total Federal Hierarchy </div>
 										</div>
 										<!-- <div class="stat stat-important">4%</div> -->
 									</div>
@@ -221,7 +221,7 @@
 						<div class="row">
 							<div class="space-6"></div>	
 							<div class="col-sm-4">
-								<a href="/admin/orders">
+								<a href="<?php echo base_url; ?>wage-determination.php">
 									<div class="infobox infobox-pink">
 										<div class="infobox-icon">
 											<i class="ace-icon fa fa-shopping-cart"></i>
@@ -251,5 +251,63 @@
 					</div><!-- /.col -->
 				</div><!-- /.row -->
 			</div><!-- /.page-content -->
+
+
+			<?php 
+			  $data_fe =  $data->con;
+			   
+			  $result = $data_fe->query("SELECT * FROM opportunities ORDER BY postedDate desc limit 20 ");
+			?>
+
+              <div class="table-header">
+                      Latest opportunities 
+              </div> 
+ 
+                <div class="dataTables_wrapper">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th width="40%">Title</th>
+                        <th >Solicitation Number</th>
+                        <th >Posted Date</th>
+                        <!-- <th >Action</th> -->
+                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php 
+                        while($data  =   $result->fetch_assoc()){
+                    ?>
+                   <tr>
+                      <td ><?php echo $data['title']?></td>
+                      <td ><a target="_blank" href="https://beta.sam.gov/opp/<?php echo $data['noticeId']?>/view"><?php echo $data['solicitationNumber'];?></a></td>
+                      <td ><?php echo date( 'm-d-Y h:i:s A' ,strtotime($data['postedDate'])); ?></td>
+                     <!--   <td > 
+                            <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_opportunities.php?action=d&id=<?php echo $data['id'];?>'}">
+                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                            </button>
+                      </td> -->
+                     
+
+                   </tr>
+                    <?php   } ?>
+
+
+                    </tbody>
+
+                </table>
+
+                <div class="clearfix"></div>
+                   
+      
+                
+               </div> 
+
+    
+
+    <div class="clearfix"></div>
+
+            
+
 		</div>
 	</div><!-- /.main-content -->

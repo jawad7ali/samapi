@@ -111,7 +111,7 @@
                         <th >_id</th>
                         <th >type</th>
                         <th >isActive</th>
-                        <th >Action</th> 
+                       <!--  <th >Action</th>  -->
                     </tr>
                     </thead>
                     <tbody>
@@ -123,12 +123,12 @@
                             <td ><?php echo $data['_id']?></td>
                             <td ><?php echo $data['type'];?></td>
                             <td ><?php echo $data['isActive'];?></td>
-                            <td > 
+                           <!--  <td > 
                             <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_contract_data.php?action=d&cId=<?php echo $data['cId'];?>'}">
                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                               </button>
   
-                             </td>
+                             </td> -->
                      
 
                             

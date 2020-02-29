@@ -76,7 +76,7 @@
                     <li class="active">Dashboard</li>
                 </ul><!-- /.breadcrumb -->
             </div>
-
+ 
 
             <div class="page-content" style="overflow-x: auto">
 
@@ -110,11 +110,9 @@
                     <tr>
                         <th >Title</th>
                         <th >Solicitation Number</th>
-                        <th >Department</th>
-                        <th >Office</th>
-                        <th >Type</th>
-                        <th >Archive Type</th>
-                        <th >Action</th>
+                       
+                        <th >Posted Date</th>
+                        <!-- <th >Action</th> -->
                         
                     </tr>
                     </thead>
@@ -127,19 +125,17 @@
                         while($data  =   $result->fetch_assoc()){ 
             ?>
                    <tr>
-                      <td ><?php echo $data['title']?></td>
-                      <td ><?php echo $data['solicitationNumber'];?></td>
-                      <td ><?php echo $data['department'];?></td>
-                      <td ><?php echo $data['office'];?></td>
+                      <td width="40%"><?php echo $data['title']?></td>
+                      <td ><a target="_blank" href="https://beta.sam.gov/opp/<?php echo $data['noticeId']?>/view"><?php echo $data['solicitationNumber'];?></a></td>
+                    
                       
-                      <td ><?php echo $data['type'];?></td>
-                      <td ><?php echo $data['archiveType'];?></td>
-                       <td > 
+                      <td ><?php echo date( 'm-d-Y h:i:s A' ,strtotime($data['postedDate'])); ?></td>
+                      <!--  <td > 
                             <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_opportunities.php?action=d&id=<?php echo $data['id'];?>'}">
                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                               </button>
   
-                      </td>
+                      </td> -->
                      
 
                    </tr>
