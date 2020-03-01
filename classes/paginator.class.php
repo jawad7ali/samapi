@@ -236,7 +236,7 @@ class Paginator{
 
 		foreach($this->ipp_array as $ipp_opt) $items .= ($ipp_opt == $this->items_per_page) ? "<option selected value=\"$ipp_opt\">$ipp_opt</option>\n":"<option value=\"$ipp_opt\">$ipp_opt</option> \n";
 
-		return " <div class='col-sm-2'><span class=\"text-muted\">Show</span> <select class=\"border rounded text-muted\" onchange=\"window.location='$_SERVER[PHP_SELF]?page=1&ipp='+this[this.selectedIndex].value+'$this->querystring';return false\">$items</select></div>\n";
+		return " <div class='col-sm-5'><span class=\"text-muted\">Show</span> <select class=\"border rounded text-muted\" onchange=\"window.location='$_SERVER[PHP_SELF]?page=1&ipp='+this[this.selectedIndex].value+'$this->querystring';return false\">$items</select></div>\n";
 
 	}
 

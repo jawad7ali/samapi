@@ -1,70 +1,47 @@
-<?php
-  
+<?php  
   // Include Configuration File 
-
   include 'includes/config.php';
 
-    // Include Database Class 
-
-
-
+  // Include Database Class 
   include 'classes/database.php';
-  
   $data = new database();
 
-  
   //Class for Pagination 
-  
   include 'classes/paginator.class.php';
   
-  //object of of pagination Class
-  
-  
   //Include Top Section 
-  
   include_once 'includes/top.php'; 
 
-
-   $data_fe =  $data->con;
-  
+  $data_fe =  $data->con;
+  $condition ='';
+  if(isset($_GET['search']) && isset($_GET['search_by'])){
+    $condition = " and ".$_GET['search_by']." like '%".$_GET['search']."%' ";  
+  }
   //Main query
   $pages = new Paginator;
   $pages->default_ipp = 10;
-
   $sql_forms = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition."");
-
-  
   $pages->items_total = $sql_forms->num_rows;
   $pages->mid_range = 2;
-  $pages->paginate(); 
-   
+  $pages->paginate();
   $result = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition." ORDER BY id desc ".$pages->limit."");
-
-
-
 ?>
-  
   <body class="no-skin">
      
     <?php 
-    // header Section 
-    include_once 'includes/header.php';
+      // header Section 
+      include_once 'includes/header.php';
     ?>
 
     <div class="main-container ace-save-state" id="main-container">
        <script type="text/javascript">
         try{ace.settings.loadState('main-container')}catch(e){}
       </script>
-
-
-    <?php 
-    // Sidebar
-    include_once 'includes/sidebar.php';
-
-    ?> 
-
-      <!-- Section main-content -->
-     
+      <?php 
+        // Sidebar
+        include_once 'includes/sidebar.php';
+      ?>
+      <!-- Section main-content -->    
       <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -76,22 +53,40 @@
                     <li class="active">Dashboard</li>
                 </ul><!-- /.breadcrumb -->
             </div>
- 
-
             <div class="page-content" style="overflow-x: auto">
-
               <div class="table-header">
                       Latest opportunities 
               </div>
+                <div class="row" style="margin: 10px 0">
                 <?php 
-                if($pages->items_total>0){
-                     
-                     ?>
-                <div style="margin: 10px 0">
+                  if($pages->items_total>0){
+                ?>
                  <?php echo $pages->display_items_per_page();?>
-                </div>
                 <?php  } ?>
-
+                    <form method="GET" action="">
+                      <div class="col-xs-3">
+                      <div id="dynamic-table_filter" class="dataTables_filter">
+                        <label>Search: <input name="search" value="<?php if(isset($_GET['search'])){ echo $_GET['search']; ?><?php } ?>" type="search" class="form-control input-sm" placeholder="" aria-controls="dynamic-table" style="display: inline-block;"></label>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                      <span class="text-muted">Search By</span> 
+                      <select name="search_by" class="border rounded text-muted" >
+                        <option selected="" value="title">Title</option>
+                        <option value="solicitationNumber">Solicitation Number</option> 
+                        <option value="department">Department</option> 
+                        <option value="noticeId">Notice Id</option> 
+                        <option value="subTier">Sub Tier</option> 
+                        <option value="office">Office</option> 
+                        <option value="baseType">Base Type</option>
+                      </select>
+                    </div>
+                    <div class="col-xs-1">
+                      <input type="submit" name="" value="Filter" class="btn btn-success">
+                    </div>
+                  </form>
+                  
+                </div>
                  <?php 
                  if(isset($_SESSION['oppertunity']['save']) and $_SESSION['oppertunity']['save']!=''){
                  ?> 
@@ -99,7 +94,6 @@
                     <button class="close" type="button" data-dismiss="alert">
                       <i class="ace-icon fa fa-times"></i>
                     </button>
-
                     <i class="ace-icon fa fa-umbrella bigger-120 blue"></i>
                       <?php echo $_SESSION['oppertunity']['save'];?>
                   </div>
@@ -110,10 +104,14 @@
                     <tr>
                         <th >Title</th>
                         <th >Solicitation Number</th>
-                       
+                        <th >Notice Id</th>
+                        <th >Department</th>
+                        <th >Sub Tier</th>
+                        <th >Office</th>
+                        <th >Type</th>
+                        <th >Status</th>
                         <th >Posted Date</th>
-                        <!-- <th >Action</th> -->
-                        
+                        <th >Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -123,19 +121,27 @@
                      if($pages->items_total>0){
                         $n  =   1;
                         while($data  =   $result->fetch_assoc()){ 
-            ?>
+                    ?>
                    <tr>
                       <td width="40%"><?php echo $data['title']?></td>
                       <td ><a target="_blank" href="https://beta.sam.gov/opp/<?php echo $data['noticeId']?>/view"><?php echo $data['solicitationNumber'];?></a></td>
-                    
-                      
-                      <td ><?php echo date( 'm-d-Y h:i:s A' ,strtotime($data['postedDate'])); ?></td>
-                      <!--  <td > 
-                            <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_opportunities.php?action=d&id=<?php echo $data['id'];?>'}">
-                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                              </button>
+
+                      <td width="40%"><?php echo $data['noticeId']?></td>
+                      <td width="40%"><?php echo $data['department']?></td>
+                      <td width="40%"><?php echo $data['subTier']?></td>
+                      <td width="40%"><?php echo $data['office']?></td>
+                      <td width="40%"><?php echo $data['baseType']?></td>
+                      <td width="40%"><?php echo $data['active']?></td>
+                      <td width="20%"><?php echo date( 'm-d-Y h:i:s A' ,strtotime($data['postedDate'])); ?></td>
+                       <td > 
+                        <a href="<?php echo base_url;?>opportunity_detail.php?id=<?php echo $data['id']?>" class="btn btn-xs btn-info" >
+                          <i class="ace-icon fa fa-eye bigger-120"></i>
+                        </a>
+                        <!--  <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_opportunities.php?action=d&id=<?php echo $data['id'];?>'}">
+                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                        </button> -->
   
-                      </td> -->
+                      </td>
                      
 
                    </tr>
