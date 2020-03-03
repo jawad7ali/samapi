@@ -27,7 +27,21 @@
   $result = $data_fe->query("SELECT * FROM opportunities WHERE 1 ".$condition." ORDER BY id desc ".$pages->limit."");
 ?>
   <body class="no-skin">
-     
+    <style type="text/css">
+      .cont-opp{
+        padding: 15px;
+        background-color: #eee;
+      }
+      .p-n-margin{
+        margin: 0 0 0 0;
+      }
+      .row-content:hover{
+        border: 1px solid green;  
+      }
+      .row-content{
+        padding: 2px;
+      }
+    </style>
     <?php 
       // header Section 
       include_once 'includes/header.php';
@@ -41,7 +55,7 @@
         // Sidebar
         include_once 'includes/sidebar.php';
       ?>
-      <!-- Section main-content -->    
+      <!-- Section main-content -->
       <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -98,7 +112,74 @@
                       <?php echo $_SESSION['oppertunity']['save'];?>
                   </div>
                 <?php } unset($_SESSION['oppertunity']['save']); ?>
-                <div class="dataTables_wrapper">
+
+               
+
+                <?php 
+                if($pages->items_total>0){
+                  $n  =   1;
+                  while($data  =   $result->fetch_assoc()){ 
+                ?>
+                 <div class="row row-content" > 
+
+                <div class="col-md-8">
+
+                
+                <div class="row"> 
+                  
+                    <div class="col-md-12">
+                      <!-- <p><strong>Title</strong></p> -->
+                      <p><a target="_blank" href="https://beta.sam.gov/opp/<?php echo $data['noticeId']?>/view"><strong><?php echo $data['title']?></strong></a></p>
+                    </div>
+
+                     <div class="col-md-12">
+                        <!-- <p><strong>Description</strong></p> -->
+                        <p><?php echo json_decode(str_replace("\t", " ", str_replace("\n", " ", $data['description'])))[0]->content ?></p>
+                        <p>....</p>
+                      <!-- 
+                      <p><strong>Solicitation Number</strong></p>
+                      <p><a target="_blank" href="https://beta.sam.gov/opp/<?php echo $data['noticeId']?>/view"><?php echo $data['solicitationNumber'];?></a></p>
+                      <p>Posted Date: <?php echo date( 'm-d-Y h:i:s A' ,strtotime($data['postedDate'])); ?></p> -->
+                    </div>
+
+                    <div class="col-md-12">
+                      <p><strong>Department/Ind. Agency</strong></p>
+                      <p><?php echo $data['department']?></p>
+                    </div>
+
+                    <div class="col-md-12">
+                      <p><strong>Sub-tier</strong></p>
+                      <p><?php echo $data['subTier']?></p>
+                    </div>
+
+                  </div>
+
+                  </div>
+                  <div class="col-md-4">
+                    <div class="cont-opp">
+                      <strong> Contract Opportunities</strong>
+                    </div>
+                    <br>
+                    <p class="p-n-margin"><strong>Notice ID</strong></p>
+                    <p><?php echo $data['noticeId']?></p>
+
+                    <p class="p-n-margin"><strong>Current Response Date</strong></p>
+                    <p><?php echo $data['lastResponseDate']?></p>
+
+                    <p class="p-n-margin"><strong>Last Updated Date</strong></p>
+                    <p><?php echo $data['lastUpdatedDate']?></p>
+
+                    <p class="p-n-margin"><strong>Last Published Date</strong></p>
+                    <p><?php echo $data['postedDate']?></p>
+
+                    <p class="p-n-margin"><strong>Type</strong></p>
+                    <p><?php echo $data['baseType']?></p>
+                  </div>
+             </div>
+             <hr>
+               <?php } } ?>
+               
+               <!--  <div class="dataTables_wrapper">
                 <table class="table">
                     <thead>
                     <tr>
@@ -137,9 +218,9 @@
                         <a href="<?php echo base_url;?>opportunity_detail.php?id=<?php echo $data['id']?>" class="btn btn-xs btn-info" >
                           <i class="ace-icon fa fa-eye bigger-120"></i>
                         </a>
-                        <!--  <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_opportunities.php?action=d&id=<?php echo $data['id'];?>'}">
+                         <button class="btn btn-xs btn-danger" onClick="if(confirm('Are sure you want to delete')){ window.location='<?php echo base_url;?>process/process_opportunities.php?action=d&id=<?php echo $data['id'];?>'}">
                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                        </button> -->
+                        </button>
   
                       </td>
                      
@@ -192,7 +273,7 @@
                         </div>
                   </div>
                </div>
-             <?php } ?>
+             <?php } ?> -->
 
     
 
