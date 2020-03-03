@@ -5,7 +5,7 @@
   // Include Database Class 
   include 'classes/database.php';
   $data = new database();
-
+  
   //Class for Pagination 
   include 'classes/paginator.class.php';
   
@@ -235,7 +235,7 @@
 
                     </tbody>
 
-                </table>
+                </table> -->
 
                 <div class="clearfix"></div>
                   
@@ -273,7 +273,7 @@
                         </div>
                   </div>
                </div>
-             <?php } ?> -->
+            <!-- <?php } ?> -->
 
     
 
