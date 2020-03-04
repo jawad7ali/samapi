@@ -35,10 +35,12 @@ $user_data = json_decode($json_data);
 // Oppertunities data 
 
 $opportunities_array = $user_data->_embedded->results;
- 
+//   echo "<pre>";
+// print_r($opportunities_array);
+// exit();
 $query_parts = array();
 
-$query = 'INSERT INTO opportunities (`noticeId`, `title`, `solicitationNumber`, `department`, `subTier`, `office`, `postedDate`, `type`, `baseType`, `archiveType`, `active`, `award`, `pointOfContact`, `description`, `officeAddress`, `placeOfPerformance`, `links`) VALUES ';
+$query = 'INSERT INTO opportunities (`noticeId`, `title`, `solicitationNumber`, `department`, `subTier`, `office`, `postedDate`, `type`, `baseType`, `archiveType`, `active`, `award`, `pointOfContact`, `description`, `officeAddress`, `placeOfPerformance`, `links`, `lastResponseDate`,`lastUpdatedDate`) VALUES ';
 
 // Loop Through Oppertunities
  
@@ -72,6 +74,7 @@ if(sizeof($opportunities_array)>0){
         $office = $office;
         $postedDate = $value->publishDate ? addslashes($value->publishDate) : '';
         $type = json_encode($value->_type ? addslashes($value->_type) : '');
+        $otype = json_encode($value->type ? $value->type : '');
         $baseType = $value->_type ? addslashes($value->_type) : '';
         $archiveType = $value->archiveType ? addslashes($value->archiveType) : '';
         $active = $value->isActive ? addslashes($value->isActive) : '';
@@ -80,13 +83,16 @@ if(sizeof($opportunities_array)>0){
         $description = json_encode($value->descriptions);
         $officeAddress =$officeAddress;
         $links =json_encode($value->organizationHierarchy);
+        $responseDate =$value->responseDate;
+        $modifiedDate =$value->modifiedDate;
+        $officeAddress =$officeAddress;
 
-        $query_parts[] = "('" . $noticeId . "', '" . $title . "', '" . $solicitationNumber . "', '" . $department . "', '" . $subTier . "', '" . $office . "', '" . $postedDate . "', '" . $type . "', '" . $baseType . "', '" . $archiveType . "','" . $active . "', '" . $award . "', '" . $pointOfContact . "', '" . $description . "', '" . $officeAddress . "', '" . $placeOfPerformance . "', '" . $links . "')";   
+        $query_parts[] = "('" . $noticeId . "', '" . $title . "', '" . $solicitationNumber . "', '" . $department . "', '" . $subTier . "', '" . $office . "', '" . $postedDate . "', '" . $otype . "', '" . $baseType . "', '" . $archiveType . "','" . $active . "', '" . $award . "', '" . $pointOfContact . "', '" . $description . "', '" . $officeAddress . "', '" . $placeOfPerformance . "', '" . $links . "', '".$responseDate."', '".$modifiedDate."')";   
       }
   }
 
   $query .= implode(',', $query_parts);
-  echo $query;
+  //echo $query;
   //exit();
   $data->query($query);
 

@@ -28,16 +28,14 @@
 
 // Read JSON file
 $json_data = file_get_contents($api_url);
-
+ 
 // Decode JSON data into PHP array
 $user_data = json_decode($json_data);
  
 // Oppertunities data 
 
 $opportunities_array = $user_data->_embedded[0]->org->hierarchy;
- echo "<pre>";
-print_r($opportunities_array);
-exit();
+
 $query_parts = array();
 
 $query = 'INSERT INTO opportunities (`noticeId`, `title`, `solicitationNumber`, `department`, `subTier`, `office`, `postedDate`, `type`, `baseType`, `archiveType`, `archiveDate`, `typeOfSetAsideDescription`, `typeOfSetAside`, `responseDeadLine`, `naicsCode`, `classificationCode`, `active`, `award`, `pointOfContact`, `description`, `organizationType`, `officeAddress`, `placeOfPerformance`, `additionalInfoLink`, `uiLink`, `links`) VALUES ';

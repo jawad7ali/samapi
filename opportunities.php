@@ -5,7 +5,7 @@
   // Include Database Class 
   include 'classes/database.php';
   $data = new database();
-  
+
   //Class for Pagination 
   include 'classes/paginator.class.php';
   
@@ -152,6 +152,11 @@
                       <p><?php echo $data['subTier']?></p>
                     </div>
 
+                    <div class="col-md-12">
+                      <p><strong>Office</strong></p>
+                      <p><?php echo $data['office']?></p>
+                    </div>
+
                   </div>
 
                   </div>
@@ -173,7 +178,7 @@
                     <p><?php echo $data['postedDate']?></p>
 
                     <p class="p-n-margin"><strong>Type</strong></p>
-                    <p><?php echo $data['baseType']?></p>
+                    <p><?php echo json_decode($data['type'])->value; ?></p>
                   </div>
              </div>
              <hr>
