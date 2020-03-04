@@ -45,10 +45,7 @@ $query = 'INSERT INTO opportunities (`noticeId`, `title`, `solicitationNumber`, 
 if(sizeof($opportunities_array)>0){
   
   foreach ($opportunities_array as $key=>$value) {
-    echo "<pre>";
-    print_r($value->organizationHierarchy[0]);
-    echo $value->organizationHierarchy[0]->name;
-    exit();
+   
       $noticeId = addslashes($value->_id);
       $getResults =  $data->existquery('opportunities','noticeId',$noticeId);
       if(!$getResults){

@@ -35,48 +35,60 @@ $opportunities_array = $user_data->_embedded->results;
  
 $query_parts = array();
 
-$query = 'INSERT INTO opportunities (`noticeId`, `title`, `solicitationNumber`, `department`, `subTier`, `office`, `postedDate`, `type`, `baseType`, `archiveType`, `archiveDate`, `typeOfSetAsideDescription`, `typeOfSetAside`, `responseDeadLine`, `naicsCode`, `classificationCode`, `active`, `award`, `pointOfContact`, `description`, `organizationType`, `officeAddress`, `placeOfPerformance`, `additionalInfoLink`, `uiLink`, `links`) VALUES ';
+$query = 'INSERT INTO opportunities (`noticeId`, `title`, `solicitationNumber`, `department`, `subTier`, `office`, `postedDate`, `type`, `baseType`, `archiveType`, `active`, `award`, `pointOfContact`, `description`, `officeAddress`, `placeOfPerformance`, `links`, `lastResponseDate`,`lastUpdatedDate`) VALUES ';
 
 // Loop Through Oppertunities
-
+ 
 if(sizeof($opportunities_array)>0){
   
   foreach ($opportunities_array as $key=>$value) {
+    $department = '';
+    $subTier = '';
+    $office = '';
+    $officeAddress = '';
+    foreach ($value->organizationHierarchy as $org_key => $org_value) {
+      if($org_value->type == 'DEPARTMENT'){
+        $department = $org_value->name;
+      }
+      if($org_value->type == 'AGENCY'){
+        $subTier = $org_value->name;
+      }
+      if($org_value->type == 'OFFICE'){
+        $office = $org_value->name;
+        $officeAddress = $org_value->streetAddress;
+      }
+    }
+    
       $noticeId = addslashes($value->_id);
       $getResults =  $data->existquery('opportunities','noticeId',$noticeId);
       if(!$getResults){
         $title = $value->title ? addslashes($value->title) : '';
         $solicitationNumber = $value->solicitationNumber ? addslashes($value->solicitationNumber) : '';
-        $department = $value->department ? addslashes($value->department) : '';
-        $subTier = $value->subTier ? addslashes($value->subTier) : '';
-        $office = $value->office ? addslashes($value->office) : '';
+        $department = $department;
+        $subTier = $subTier;
+        $office = $office;
         $postedDate = $value->publishDate ? addslashes($value->publishDate) : '';
-        $type = json_encode($value->type ? addslashes($value->type) : '');
-        $baseType = $value->baseType ? addslashes($value->baseType) : '';
+        $type = json_encode($value->_type ? addslashes($value->_type) : '');
+        $otype = json_encode($value->type ? $value->type : '');
+        $baseType = $value->_type ? addslashes($value->_type) : '';
         $archiveType = $value->archiveType ? addslashes($value->archiveType) : '';
-        $archiveDate = $value->archiveDate ? addslashes($value->archiveDate) : '';
-        $typeOfSetAsideDescription = $value->typeOfSetAsideDescription ? addslashes($value->typeOfSetAsideDescription) : '';
-        $typeOfSetAside = $value->typeOfSetAside ? addslashes($value->typeOfSetAside) : '';
-        $responseDeadLine = $value->responseDeadLine ? addslashes($value->responseDeadLine) : '';
-        $naicsCode = $value->_rScore ? addslashes($value->_rScore) : '';
-        $classificationCode = $value->classificationCode ? addslashes($value->classificationCode) : '';
         $active = $value->isActive ? addslashes($value->isActive) : '';
-        $award = json_encode($value->award ? addslashes($value->award) : '');
-        $pointOfContact =json_encode($value->pointOfContact ? addslashes($value->pointOfContact) : '');
-        $description = json_encode($value->descriptions ? addslashes($value->descriptions) : '');
-        $organizationType = $value->organizationType ? addslashes($value->organizationType) : '';
-        $officeAddress =json_encode($value->officeAddress ? addslashes($value->officeAddress) : '');
-      $placeOfPerformance =json_encode($value->placeOfPerformance ? addslashes($value->placeOfPerformance) : '');
-        $additionalInfoLink = $value->additionalInfoLink ? addslashes($value->additionalInfoLink) : '';
-        $uiLink = $value->uiLink ? addslashes($value->uiLink) : '';  
-        $links =json_encode($value->organizationHierarchy ? addslashes($value->organizationHierarchy) : '');
+        $award = json_encode($value->award);
+        $pointOfContact =json_encode($value->pointOfContact);
+        $description = json_encode($value->descriptions);
+        $officeAddress =$officeAddress;
+        $links =json_encode($value->organizationHierarchy);
+        $responseDate =$value->responseDate;
+        $modifiedDate =$value->modifiedDate;
+        $officeAddress =$officeAddress;
 
-        $query_parts[] = "('" . $noticeId . "', '" . $title . "', '" . $solicitationNumber . "', '" . $department . "', '" . $subTier . "', '" . $office . "', '" . $postedDate . "', '" . $type . "', '" . $baseType . "', '" . $archiveType . "', '" . $archiveDate . "', '" . $typeOfSetAsideDescription . "', '" . $typeOfSetAside . "', '" . $responseDeadLine . "', '" . $naicsCode . "', '" . $classificationCode . "', '" . $active . "', '" . $award . "', '" . $pointOfContact . "', '" . $description . "', '" . $organizationType . "', '" . $officeAddress . "', '" . $placeOfPerformance . "', '" . $additionalInfoLink . "', '" . $uiLink . "', '" . $links . "')";   
+        $query_parts[] = "('" . $noticeId . "', '" . $title . "', '" . $solicitationNumber . "', '" . $department . "', '" . $subTier . "', '" . $office . "', '" . $postedDate . "', '" . $otype . "', '" . $baseType . "', '" . $archiveType . "','" . $active . "', '" . $award . "', '" . $pointOfContact . "', '" . $description . "', '" . $officeAddress . "', '" . $placeOfPerformance . "', '" . $links . "', '".$responseDate."', '".$modifiedDate."')";   
       }
   }
 
-    $query .= implode(',', $query_parts);
-   // echo $query;
-    $data->query($query);
+  $query .= implode(',', $query_parts);
+  //echo $query;
+  //exit();
+  $data->query($query);
 
 }
