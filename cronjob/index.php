@@ -8,7 +8,7 @@ setcookie("from", $_COOKIE["from"]+10, time()+30*24*60*60);
 $rec =  $_COOKIE["from"];
 $from = $rec-10;
 $to =$rec;
-
+echo $from;
 
 // $from = $_SESSION['from'] ? $_SESSION['from'] : 10;
 // $to = $_SESSION['from']+10;
