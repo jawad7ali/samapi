@@ -2,6 +2,12 @@
 //session_start();
 // Include Database Class
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+session_start();
+error_reporting(1);
+
+
 include 'database.php';
 
 $data = new database();
