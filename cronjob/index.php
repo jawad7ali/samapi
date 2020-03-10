@@ -4,17 +4,18 @@
 
 include 'database.php';
 
-setcookie("from", $_COOKIE["from"]+10, time()+30*24*60*60);
-$rec =  $_COOKIE["from"];
-$from = $rec-10;
-$to =$rec;
-echo $from;
+$data = new database();
+$result = $data->con->query("SELECT count FROM cronjob");
+$datao  =   $result->fetch_assoc();
+$limit =10;
+if(mysqli_num_rows($result))
+{
+	$limit =$datao['count'];
+}
 
-// $from = $_SESSION['from'] ? $_SESSION['from'] : 10;
-// $to = $_SESSION['from']+10;
-// $_SESSION['from'] = $to;
+$from = $limit;
+$to =$limit+10;
 
-// echo $_SESSION['from'];
 
 include_once 'process_opportunity.php';
 include_once 'process_federal_hierarchy.php';
@@ -24,5 +25,13 @@ include_once 'process_awards.php';
 include_once 'process_assistance_listing.php';
 include_once 'process_entity_information.php';
 include_once 'process_wage_determination.php';
+
+$sql = "update cronjob SET count='$to' where id=1 ";
+if ($data->con->query($sql) === TRUE) {
+    echo "Record updated successfully";
+} else {
+    echo "Error updating record: " . $conn->error;
+}
+ 
 
 ?>
