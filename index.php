@@ -26,29 +26,29 @@
   $data_fe =  $data->con;
   
   //Main query
-  $sql_forms = $data_fe->query("SELECT aId FROM awards");
-  $totalawards = $sql_forms->num_rows;
+  // $sql_forms = $data_fe->query("SELECT aId FROM awards");
+  // $totalawards = $sql_forms->num_rows;
 
-  $sql_forms = $data_fe->query("SELECT lId FROM assistance_listing");
-  $assistance_listing = $sql_forms->num_rows;
+  // $sql_forms = $data_fe->query("SELECT lId FROM assistance_listing");
+  // $assistance_listing = $sql_forms->num_rows;
 
-  $sql_forms = $data_fe->query("SELECT cId FROM contract_data");
-  $contract_data = $sql_forms->num_rows;
+  // $sql_forms = $data_fe->query("SELECT cId FROM contract_data");
+  // $contract_data = $sql_forms->num_rows;
 
-  $sql_forms = $data_fe->query("SELECT eId FROM entity_information");
-  $entity_information = $sql_forms->num_rows;
+  // $sql_forms = $data_fe->query("SELECT eId FROM entity_information");
+  // $entity_information = $sql_forms->num_rows;
 
   $sql_forms = $data_fe->query("SELECT id FROM opportunities");
   $opportunities = $sql_forms->num_rows;
 
-  $sql_forms = $data_fe->query("SELECT wId FROM wage_determination");
-  $wage_determination = $sql_forms->num_rows;
+  // $sql_forms = $data_fe->query("SELECT wId FROM wage_determination");
+  // $wage_determination = $sql_forms->num_rows;
   
-  $sql_forms = $data_fe->query("SELECT fId FROM federal_hierarchy");
-  $federal_hierarchy = $sql_forms->num_rows;
+  // $sql_forms = $data_fe->query("SELECT fId FROM federal_hierarchy");
+  // $federal_hierarchy = $sql_forms->num_rows;
 
    ?>
-  
+
   <body class="no-skin">
      
     <?php 
@@ -124,7 +124,7 @@
 
 							<div class="col-sm-12 infobox-container">
 								<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-4" style="margin-bottom: 20px;">
 									<a href="<?php echo base_url; ?>opportunities.php">
 										<div class="infobox infobox-green">
 											<div class="infobox-icon">
@@ -139,8 +139,10 @@
 											<!-- <div class="stat stat-success">8%</div> -->
 										</div>
 									</a>
+
 								</div>
-								<div class="col-sm-4">
+
+								<!-- <div class="col-sm-4">
 									<a href="<?php echo base_url; ?>awards.php">
 										<div class="infobox infobox-blue">
 											<div class="infobox-icon">
@@ -153,8 +155,8 @@
 											</div>
 										</div>
 									</a>
-								</div>
-								<div class="col-sm-4">
+								</div> -->
+								<!-- <div class="col-sm-4">
 									<a href="<?php echo base_url; ?>assistance-listing.php">
 										<div class="infobox infobox-pink">
 											<div class="infobox-icon">
@@ -165,12 +167,11 @@
 												<span class="infobox-data-number"><?php echo $assistance_listing; ?></span>
 												<div class="infobox-content">Total  Assistance Listing </div>
 											</div>
-											<!-- <div class="stat stat-important">4%</div> -->
-										</div>
+ 										</div>
 									</a>
-								</div>
+								</div> -->
 							</div>
-								<div class="row">
+								<div class="row"><!-- 
 									<div class="space-6"></div>
 								<div class="col-sm-4">
 								<a href="<?php echo base_url; ?>contract-data.php">
@@ -183,7 +184,6 @@
 											<span class="infobox-data-number"><?php echo $contract_data; ?></span>
 											<div class="infobox-content">Total Contract Data </div>
 										</div>
-										<!-- <div class="stat stat-important">4%</div> -->
 									</div>
 								</a>
 							</div>
@@ -198,7 +198,6 @@
 											<span class="infobox-data-number"><?php echo $entity_information; ?></span>
 											<div class="infobox-content">Total Entity Information</div>
 										</div>
-										<!-- <div class="stat stat-important">4%</div> -->
 									</div>
 								</a>
  								</div>
@@ -213,13 +212,12 @@
 											<span class="infobox-data-number"><?php echo $federal_hierarchy; ?></span>
 											<div class="infobox-content">Total Federal Hierarchy </div>
 										</div>
-										<!-- <div class="stat stat-important">4%</div> -->
 									</div>
 								</a>
 							</div>
-						</div>
+						 --></div>
 						<div class="row">
-							<div class="space-6"></div>	
+						<!-- 	<div class="space-6"></div>	
 							<div class="col-sm-4">
 								<a href="<?php echo base_url; ?>wage-determination.php">
 									<div class="infobox infobox-pink">
@@ -231,10 +229,9 @@
 											<span class="infobox-data-number"><?php echo $wage_determination; ?></span>
 											<div class="infobox-content">Total wage-determination</div>
 										</div>
-										<!-- <div class="stat stat-important">4%</div> -->
 									</div>
 								</a>
-							</div>
+							</div> -->
 							   
 
 								 

@@ -163,7 +163,7 @@
                             <span class="menu-text"> Opportunities </span>
                         </a>
                     </li>
-                    <li <?php if($page=='awards') {?>class="active"<?php } ?>>
+                    <!-- <li <?php if($page=='awards') {?>class="active"<?php } ?>>
 						<a href="<?php echo base_url; ?>awards.php">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> All Award </span>
@@ -199,7 +199,7 @@
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text">wage-determination</span>
 						</a>
-					</li>
+					</li> -->
  
 				</ul><!-- /.nav-list -->
 
